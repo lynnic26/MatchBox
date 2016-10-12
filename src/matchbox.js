@@ -116,64 +116,6 @@ define(function(require) {
             });   
             return this;               
         },
-        upload: function(cfg) {
-            var CFG = $.extend(this.cfg, cfg);
-            var box = $('<div class="hotel-layer uploading"></div>');
-            var head = $('<h1 class="layer-head"><span>' + CFG.title + '</span></h1>');
-            var content = $('<div class="layer-body"></div>');
-            var footer = $('<div class="layer-footer"></div>');
-            var closeBtn = $('<span class="layer-close"><span class="v"></span><span class="h"></span></span>');
-            var confirmBtn = $('<a class="btn-confirm">' + CFG.text4Btn + '</a>');
-            var totalNum = $('<span class="total-num">共是<span class="no">' + CFG.totalNum + '</span>张照片</span>');
-            
-            // for(var i = 0; i < CFG.totalNum; i ++ ) {
-            //     var item = $('<div class="item"><img src="' + 'http://img4.tuniucdn.com/img/20140314/hotel_2016/upload-placeholder.jpg' + '"><div class="progressbar"><span class="bar"><span class="inner-bar"></span></span><span class="percentage">0%</span></div><div class="delete"></div></div>');
-            //     content.append(item);
-            // }
-            if(CFG.content) {
-                content.html(CFG.content);
-            }
-            if(CFG.htmlStr) {
-                content.html(CFG.htmlStr);
-            }
-
-            footer.append(totalNum).append(confirmBtn);
-            box.append(head).append(content).append(footer).append(closeBtn);
-            box.appendTo('body');
-            box.css({
-                'width': CFG.width + 'px'
-            });
-            content.css({
-                'max-height': CFG.height - 135 + 'px'
-            });
-            if(CFG.hasMask) {
-                var mask = $('<div class="layer-mask"></div>');
-                mask.appendTo('body');
-            }
-            closeBtn.on('click', function() {
-
-                box.remove();
-                mask.remove();
-            });
-            confirmBtn.on('click', function() {
-                if(CFG.handle4Confirm && CFG.handle4Confirm()) {    
-                    box.remove();
-                    mask.remove(); 
-                }
-            });
-
-            //删除操作
-            content.find('.delete').on('click', function(e) {
-                if(1 === content.find('.item').length) {
-                    $(e.currentTarget).closest('.item').remove();
-                    box.remove();
-                    mask.remove();        
-                }else {
-                    $(e.currentTarget).closest('.item').remove();
-                }
-            }); 
-            return this;                  
-        },
         tips: function(cfg) {
             var CFG = $.extend(this.cfg, cfg);
             var box = $('<div class="hotel-layer tips"></div>');
