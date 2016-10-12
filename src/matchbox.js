@@ -1,5 +1,5 @@
 define(function(require) {
-    var $ = require('jquery');
+    var Widget = require('Widget');
     function HoteLayer() {
         this.cfg = {
         	width: '430',
@@ -11,24 +11,8 @@ define(function(require) {
             text4Btn: '确定',
             text4CancelBtn: '取消'
         }   
-        this.handlers = {};
     }
-    HoteLayer.prototype = {
-        on: function(type, handler) {
-            if(typeof this.handlers['type'] == undefined) {
-                this.handlers[type] = [];
-            }
-            this.handlers[type].push(handler);
-            return this;
-        }, 
-        fire: function(type, data) {
-            if(this.handlers[type] instanceof Array) {
-                var handlers = this.handlers[type];
-                for(var i = 0, len = handlers.length; i < len; i ++) {
-                    handlers[i](data);
-                }
-            }
-        },
+    HoteLayer.prototype = $.extend({}, new Widget(), {
         alert: function(cfg) {
             var CFG = $.extend(this.cfg, cfg);
             var box = $('<div class="hotel-layer"></div>');
@@ -222,7 +206,7 @@ define(function(require) {
                 CFG.callback && CFG.callback();
             }, last);
         }
-    }
+    });
     return HoteLayer;
 });
 

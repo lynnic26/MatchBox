@@ -19,7 +19,5 @@ define(function () {
             }
 		}
 	}
-	return {
-		Widget: Widget
-	}
+	return Widget;
 });
