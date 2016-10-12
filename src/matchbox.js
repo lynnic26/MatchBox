@@ -8,22 +8,32 @@ define(function(require) {
         	title: '提示',
         	hasMask: true,
             content: '在此添加显示文字',
-            text4Btn: '确定',
+            text4ConfirmBtn: '确定',
             text4CancelBtn: '取消',
-            text4AlertBtn: '确定',
+            text4OkBtn: '确定',
             okHandler: null,
+            confirmHandler: null,
+            cancelHandler: null,
             closeHandler: null
         }   
     }
     HoteLayer.prototype = $.extend({}, new Widget(), {
         renderUI: function() {
+            var footerContent = null;
+            switch(this.cfg.boxType) {
+                case 'alert': 
+                    footerContent = '<a class="btn-confirm">' + this.cfg.text4OkBtn + '</a>';
+                break;
+                case 'confirm':
+                    footerContent = '<a class="btn-confirm">' + this.cfg.text4ConfirmBtn + '</a>' +
+                                    '<a class="btn-cancel">' + this.cfg.text4CancelBtn + '</a>';
+                break;
+            }
             this.boundingBox = $(
                     '<div class="matchbox">' + 
                         '<h1 class="matchbox-head">' + this.cfg.title + ' </h1>' + 
                         '<div class="matchbox-body">' + this.cfg.content + '</div>' + 
-                        '<div class="matchbox-footer">' + 
-                            '<a class="btn-confirm">' + this.cfg.text4AlertBtn + '</a>' + 
-                        '</div>' +   
+                        '<div class="matchbox-footer">' + footerContent + '</div>' +   
                     '</div>'
                 );
             if(this.cfg.hasMask) {
@@ -38,20 +48,34 @@ define(function(require) {
         },
         bindUI: function() {
             this.boundingBox.
-                on('click', '.btn-confirm', $.proxy(function() {
+                on('click', '.btn-ok', $.proxy(function() {
                     this.fire('ok');
                     this.destroy();
-            }, this)).
+                }, this)).
                 on('click', '.matchbox-close', $.proxy(function() {
                     this.fire('close');
                     this.destroy();
-            }, this));
+                }, this)).
+                on('click', '.btn-confirm', $.proxy(function() {
+                    this.fire('confirm');
+                    this.destroy();
+                }, this)).
+                on('click', '.btn-cancel', $.proxy(function() {
+                    this.fire('cancel');
+                    this.destroy();
+                }, this));
 
             if(this.cfg.okHandler) {
                 this.on('ok', this.cfg.okHandler);
             }  
             if(this.cfg.closeHandler) {
                 this.on('close', this.cfg.closeHandler);
+            }
+            if(this.cfg.confirmHandler) {
+                this.on('confirm', this.cfg.confirmHandler);
+            }
+            if(this.cfg.cancelHandler) {
+                this.on('cancel', this.cfg.cancelHandler);
             }
         },
         syncUI: function() {
@@ -64,12 +88,23 @@ define(function(require) {
             this._mask && this._mask.remove();
         },
         alert: function(cfg) {
-            $.extend(this.cfg, cfg);
+            $.extend(this.cfg, cfg, {
+                boxType: 'alert'
+            });
             this.render();
             return this;
         },
         confirm: function(cfg) {
-            var CFG = $.extend(this.cfg, cfg);
+            $.extend(this.cfg, cfg, {
+                boxType: 'confirm'
+            });
+            this.render();
+            return this;
+        },
+        confirmxx: function(cfg) {
+            var CFG = $.extend(this.cfg, cfg, {
+                boxType: 'confirm'
+            });
             var box = $('<div class="hotel-layer"></div>');
              var head = $('<h1 class="layer-head"><span>' + CFG.title + '</span></h1>');
             var content = $('<div class="layer-body"></div>');

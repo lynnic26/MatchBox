@@ -69,6 +69,7 @@
 	font-size: 15px;
 }
 .matchbox .matchbox-footer .btn-confirm, 
+.matchbox .matchbox-footer .btn-ok, 
 .matchbox .matchbox-footer .btn-cancel {
 	box-sizing: border-box;
     display: inline-block;
