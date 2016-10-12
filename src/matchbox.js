@@ -7,51 +7,66 @@ define(function(require) {
         	hasCloseBtn: true,
         	title: '提示',
         	hasMask: true,
-            content: '确定删除图片吗？',
+            content: '在此添加显示文字',
             text4Btn: '确定',
-            text4CancelBtn: '取消'
+            text4CancelBtn: '取消',
+            text4AlertBtn: '确定',
+            okHandler: null,
+            closeHandler: null
         }   
     }
     HoteLayer.prototype = $.extend({}, new Widget(), {
+        renderUI: function() {
+            this.boundingBox = $(
+                    '<div class="matchbox">' + 
+                        '<h1 class="matchbox-head">' + this.cfg.title + ' </h1>' + 
+                        '<div class="matchbox-body">' + this.cfg.content + '</div>' + 
+                        '<div class="matchbox-footer">' + 
+                            '<a class="btn-confirm">' + this.cfg.text4AlertBtn + '</a>' + 
+                        '</div>' +   
+                    '</div>'
+                );
+            if(this.cfg.hasMask) {
+                this._mask = $('<div class="matchbox-mask"></div>');
+                this._mask.appendTo('body');
+            }
+            if(this.cfg.hasCloseBtn) {
+                var closeBtn = $('<span class="matchbox-close"><span class="v"></span><span class="h"></span></span>');
+                this.boundingBox.append(closeBtn);
+                this.boundingBox.appendTo(document.body);
+            }
+        },
+        bindUI: function() {
+            this.boundingBox.
+                on('click', '.btn-confirm', $.proxy(function() {
+                    this.fire('ok');
+                    this.destroy();
+            }, this)).
+                on('click', '.matchbox-close', $.proxy(function() {
+                    this.fire('close');
+                    this.destroy();
+            }, this));
+
+            if(this.cfg.okHandler) {
+                this.on('ok', this.cfg.okHandler);
+            }  
+            if(this.cfg.closeHandler) {
+                this.on('close', this.cfg.closeHandler);
+            }
+        },
+        syncUI: function() {
+            this.boundingBox.css({
+                'width': this.cfg.width + 'px',
+                'height': this.cfg.height + 'px'
+            });
+        },
+        destructor: function() {
+            this._mask && this._mask.remove();
+        },
         alert: function(cfg) {
-            var CFG = $.extend(this.cfg, cfg);
-            var box = $('<div class="hotel-layer"></div>');
-            var head = $('<h1 class="layer-head">' + CFG.title + ' </h1>');
-            var content = $('<div class="layer-body">' + CFG.content + '</div>');
-            var footer = $('<div class="layer-footer"></div>');
-            var closeBtn = $('<span class="layer-close"><span class="v"></span><span class="h"></span></span>');
-            var confirmBtn = $('<a class="btn-confirm">确定</a>');
-            if(CFG.bgImg) {    
-                var bgImg = $('<img class="tip-pic">');
-                bgImg.attr({
-                    'src': CFG.bgImg
-                })
-                content.append(bgImg);
-            }
-            footer.append(confirmBtn);
-            box.append(head).append(content).append(footer).append(closeBtn);
-            box.appendTo('body'); 
-            box.css({
-                // 'height': CFG.height,
-                'width': CFG.width
-            });
-            content.css({
-                'height': CFG.height - 114 + 'px'
-            });
-            if(CFG.hasMask) {
-                var mask = $('<div class="layer-mask"></div>');
-                mask.appendTo('body');
-            }
-            closeBtn.on('click', function() {
-                box.remove();
-                mask.remove();
-            });
-            confirmBtn.on('click', function() {
-                CFG.handler4Ok && CFG.handler4Ok();
-                box.remove();
-                mask.remove();
-            });     
-            return this;             
+            $.extend(this.cfg, cfg);
+            this.render();
+            return this;
         },
         confirm: function(cfg) {
             var CFG = $.extend(this.cfg, cfg);
@@ -115,6 +130,9 @@ define(function(require) {
                 }
             });   
             return this;               
+        },
+        prompt: function() {
+
         },
         tips: function(cfg) {
             var CFG = $.extend(this.cfg, cfg);

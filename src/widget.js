@@ -18,12 +18,6 @@ define(function () {
             	}
             }
 		},
-
-		renderUI: function() {},
-		bindUI: function() {},
-		syncUI: function() {},
-		destructor: function() {},
-
 		render: function(container) {
             this.renderUI();
             this.handlers = {};
@@ -35,7 +29,11 @@ define(function () {
             this.destructor();
             this.boundingBox.off();
             this.boundingBox.remove();
-		}
+		},
+		renderUI: function() {},
+		bindUI: function() {},
+		syncUI: function() {},
+		destructor: function() {}
 	}
 
 	return Widget;

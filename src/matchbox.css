@@ -1,9 +1,10 @@
-.hotel-layer,
-.hotel-layer div {
+.matchbox,
+.matchbox div {
 	box-sizing: border-box;
 	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
-.hotel-layer {
+.matchbox {
+	box-sizing: border-box;
 	position: fixed;
 	top: 50%;
 	left: 50%;
@@ -14,7 +15,7 @@
 	z-index: 10;
 	border: 1px solid #ccc;
 }
-.hotel-layer .layer-close {
+.matchbox .matchbox-close {
 	position: absolute;
 	display: block;
 	width: 20px;
@@ -24,21 +25,21 @@
 	z-index: 10;
 	cursor: pointer;
 }
-.hotel-layer .layer-close .v,
-.hotel-layer .layer-close .h {
+.matchbox .matchbox-close .v,
+.matchbox .matchbox-close .h {
 	position: absolute;
 	top: 9px;
     width: 20px;
     height: 2px;
     background-color: #999;
 }
-.hotel-layer .layer-close .v {
+.matchbox .matchbox-close .v {
 	transform: rotate(-45deg);
 }
-.hotel-layer .layer-close .h {
+.matchbox .matchbox-close .h {
 	transform: rotate(45deg);
 }
-.hotel-layer .layer-head {
+.matchbox .matchbox-head {
 	line-height: 40px;
 	padding: 0 20px;
 	margin: 0;
@@ -46,29 +47,29 @@
 	font-size: 18px;
 	color: #999;
 }
-.hotel-layer .layer-body {
+.matchbox .matchbox-body {
 	padding-top: 40px;
 	text-align: center;
 	color: #666;
 	font-size: 14px;
 	position: relative;
 }
-.hotel-layer .layer-body .tip-pic {
+.matchbox .matchbox-body .tip-pic {
     position: absolute;
     top: 14px;
     left: 73px;
 }
-.hotel-layer .layer-footer {
-	/*position: absolute;
-	bottom: 0;*/
+.matchbox .matchbox-footer {
+	position: absolute;
+	bottom: 0;
 	padding-bottom: 40px;
 	text-align: center;
 	width: 100%;
 	overflow: hidden;
 	font-size: 15px;
 }
-.hotel-layer .layer-footer .btn-confirm, 
-.hotel-layer .layer-footer .btn-cancel {
+.matchbox .matchbox-footer .btn-confirm, 
+.matchbox .matchbox-footer .btn-cancel {
 	box-sizing: border-box;
     display: inline-block;
     height: 34px;
@@ -79,20 +80,20 @@
     border-radius: 2px;
 }
 
-.hotel-layer .layer-footer .btn-confirm {
+.matchbox .matchbox-footer .btn-confirm {
     background-color: #ff8800;
     line-height: 34px;
     color: #fff;
     /*margin-right: 20px;*/
 }
-.hotel-layer .layer-footer .btn-cancel {
+.matchbox .matchbox-footer .btn-cancel {
 	margin-left: 20px;
     background-color: #fff;
     line-height: 34px;
     color: #666; 
     border: 1px solid #ccc;
 }
-.layer-mask {
+.matchbox-mask {
 	height: 100%;
 	width: 100%;
 	background-color: #000;
@@ -103,21 +104,21 @@
 	z-index: 8;
 }
 /*----begin upload样式-------*/
-.hotel-layer.uploading .layer-head {
+.matchbox.uploading .matchbox-head {
     color: #333;
     font-size: 16px;
     font-weight: 800;
 }
-.hotel-layer.uploading .layer-head span {
+.matchbox.uploading .matchbox-head span {
     display: inline-block;
     line-height: 40px;
     border-bottom: 4px solid #37c249;
 }
-.hotel-layer.uploading .layer-body {
+.matchbox.uploading .matchbox-body {
 	padding: 0 30px;
 	overflow-y: auto;
 }
-.hotel-layer.uploading .layer-body .item {
+.matchbox.uploading .matchbox-body .item {
 	/*height: 97px;*/
 	border-bottom: 1px solid #ccc;
 	padding-top: 15px;
@@ -125,17 +126,17 @@
 	overflow: hidden;
 	position: relative;
 }
-.hotel-layer.uploading .layer-body .item img {
+.matchbox.uploading .matchbox-body .item img {
 	width: 100px;
 	height: 70px;
 	margin: 0px 20px 0px 0;
 	vertical-align: middle;
 }
-.hotel-layer.uploading .layer-body .item .progressbar,
-.hotel-layer.uploading .layer-body .item .delete {
+.matchbox.uploading .matchbox-body .item .progressbar,
+.matchbox.uploading .matchbox-body .item .delete {
 	display: inline-block;
 }
-.hotel-layer.uploading .layer-body .item .delete {
+.matchbox.uploading .matchbox-body .item .delete {
 	position: absolute;
 	right: 10px;
 	top: 37px;
@@ -144,10 +145,10 @@
 	width: 18px;
 	background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAAUCAYAAACAl21KAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA3FpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNS1jMDE0IDc5LjE1MTQ4MSwgMjAxMy8wMy8xMy0xMjowOToxNSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDpmZTFiNjVhMi04OGZhLTE2NDktOTdjZi00NDQwOThkNjkzY2QiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6QkRDQTFDQzY2RTk3MTFFNkJGNEE4NDI5RThCOEY1RDYiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6QkRDQTFDQzU2RTk3MTFFNkJGNEE4NDI5RThCOEY1RDYiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIChXaW5kb3dzKSI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOmU0MGVlYzFhLTk3NTUtZWU0Yi05YTQ4LWUxMDAxNWE4Y2UxNiIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDpmZTFiNjVhMi04OGZhLTE2NDktOTdjZi00NDQwOThkNjkzY2QiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz4cFLLJAAAAT0lEQVR42mL8v8KYAQ38ZyAOMILJ8DNgiomBSoCFoI2YAKuLqeYiRmAY/aeGQVQNI0Y0v5PGDz/DSFUXjRo0atDwNIiFiPKGEJ+6LgIIMAC96RAklOkXsgAAAABJRU5ErkJggg==);
 }
-.hotel-layer.uploading .layer-body .item .progressbar {
+.matchbox.uploading .matchbox-body .item .progressbar {
 	padding-right: 30px;
 }
-.hotel-layer.uploading .layer-body .item .progressbar .bar {
+.matchbox.uploading .matchbox-body .item .progressbar .bar {
 	display: inline-block;
 	width: 233px;
 	height: 10px;
@@ -156,7 +157,7 @@
 	border-radius: 4px;
 	position: relative;
 }
-.hotel-layer.uploading .layer-body .item .progressbar .inner-bar{
+.matchbox.uploading .matchbox-body .item .progressbar .inner-bar{
     position: absolute;
     left: 0;
     top: 0;
@@ -166,46 +167,46 @@
     background-color: #37c249;
     border-radius: 4px;
 }
-.hotel-layer.uploading .layer-body .item .progressbar .percentage {
+.matchbox.uploading .matchbox-body .item .progressbar .percentage {
 	font-size: 14px;
 	color: #999;
 }
-.hotel-layer.uploading .layer-footer {
+.matchbox.uploading .matchbox-footer {
 	padding-left: 30px;
 	padding-right: 30px;
 	padding-top: 20px;
 }
-.hotel-layer.uploading .layer-footer .total-num {
+.matchbox.uploading .matchbox-footer .total-num {
 	display: inline-block;
 	float: left;
 	line-height: 34px;
 } 
-.hotel-layer.uploading .layer-footer .no {
+.matchbox.uploading .matchbox-footer .no {
 	font-size: 24px;
 	color: #666;
 	padding: 0 5px;
 }
-.hotel-layer.uploading .layer-footer .btn-confirm {
+.matchbox.uploading .matchbox-footer .btn-confirm {
 	float: right;
 }
 /*----end upload样式-------*/
 /*----begin tips样式-------*/
-.hotel-layer.tips {
+.matchbox.tips {
 	width: 400px;
 	height: 80px;
 }
-.hotel-layer.tips .layer-body {
+.matchbox.tips .matchbox-body {
 	padding-top: 0;
     text-align: center;
     color: #666;
     font-size: 14px;
     line-height: 80px;
 }
-.hotel-layer.tips .layer-body .tips-content {
+.matchbox.tips .matchbox-body .tips-content {
 	padding-left: 56px;
 	position: relative;
 }
-.hotel-layer.tips .layer-body .icon {
+.matchbox.tips .matchbox-body .icon {
 	margin-right: 20px;
 	position: absolute;
 	top: -10px;
